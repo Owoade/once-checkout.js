@@ -42,7 +42,7 @@ class Once {
 
         Boolean(errors.typeMismatch) &&
             console.error(`${errors.typeMismatch} must be of type ${errors.typeMismatch === "amount" ? "number" : "function"}`);
-            
+
     }
     async getCheckoutLink() {
         const requestConfig = {
@@ -65,10 +65,7 @@ class Once {
 
             socket.emit("transaction-init", ref );
 
-            socket.on("transaction-resolved", function(){
-                this.payload.successCallback();
-                clicked = false;
-            });
+            socket.on("transaction-resolved", this.payload.successCallback );
         }catch( e ){
             throw new Error("socket-io client cdn script missing, use <script src='https://cdn.socket.io/4.5.3/socket.io.min.js' ></script> preceeding all other scripts ");
         }
