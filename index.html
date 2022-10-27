@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>Checkout once</button>
+</body>
+
+<script src="https://cdn.socket.io/4.5.3/socket.io.min.js" crossorigin="anonymous"></script>
+<script src="./build/sdk.js"></script>
+<script>
+    const btn = document.querySelector("button");
+    function handleCheckout(e){
+        e.preventDefault();
+        const payload = {
+            amount: 10000,
+            successCallback(){
+                document.write("<h1>Transaction Successfull</h1>")
+            }
+        }
+        const once = new Once( payload );
+        once.checkout()
+    }
+    btn.addEventListener("click", handleCheckout)
+</script>
+</html>
