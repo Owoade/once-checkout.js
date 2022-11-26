@@ -61,7 +61,7 @@ class Once {
       body: JSON.stringify({ amount: this.payload.amount, host: window.location.host }),
     } 
 
-   const res = await fetch("https://once-api.herokuapp.com/init", requestConfig );
+   const res = await fetch("https://web-production-133c.up.railway.app/init", requestConfig );
 
    return await res.json() as OnceInitialize;
 
