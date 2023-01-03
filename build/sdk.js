@@ -48,8 +48,6 @@ class Once {
         try{
             const socket = io("https://once-checkout.onrender.com/transaction");
 
-            console.log( ref );
-
             socket.emit("transaction-init", ref );
 
             socket.on("transaction-resolved", this.payload.successCallback );
