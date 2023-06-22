@@ -61,11 +61,23 @@ class Once {
       body: JSON.stringify({ amount: this.payload.amount, host: window.location.host }),
     } 
 
-   const res = await fetch("https://once-checkout.onrender.com/init", requestConfig );
+   const res = await fetch("https://once-checkout-c1210716449a.herokuapp.com/init", requestConfig );
 
    return await res.json() as OnceInitialize;
 
   }
+  private setUpEvents( ref: string ){
+    try{
+        const socket = io("https://once-checkout-c1210716449a.herokuapp.com/transaction");
+
+        socket.emit("transaction-init", ref );
+
+        socket.on("transaction-resolved", this.payload.successCallback );
+    }catch( e ){
+        throw new Error("socket-io client cdn script missing, use <script src='https://cdn.socket.io/4.5.3/socket.io.min.js' ></script> preceeding all other scripts ");
+    }
+    
+}
 
   
 }
