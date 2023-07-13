@@ -1,3 +1,4 @@
+let clicked = false;
 
 class Once {
   payload: OncePayload;
@@ -28,6 +29,12 @@ class Once {
   }
 
   async checkout() {
+    if( clicked  ) return 
+
+    clicked = true;
+
+    setTimeout(()=> clicked = false, 10000 )
+
     const errors = this.validatePayload();
     //   No errors
     const NO_ERROR = Object.values(errors).every((error: string | null) => !Boolean(error));
@@ -61,7 +68,7 @@ class Once {
       body: JSON.stringify({ amount: this.payload.amount, host: window.location.host }),
     } 
 
-   const res = await fetch("https://once-checkout-c1210716449a.herokuapp.com/init", requestConfig );
+   const res = await fetch("https://api.checkoutonce.com/init", requestConfig );
 
    return await res.json() as OnceInitialize;
 

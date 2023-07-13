@@ -1,4 +1,5 @@
 "use strict";
+let clicked = false;
 class Once {
     constructor(payload) {
         this.payload = payload !== null && payload !== void 0 ? payload : {};
@@ -19,6 +20,10 @@ class Once {
         return { missingPayload: MISSING_PAYLOAD, typeMismatch: TYPE_MISMATCH };
     }
     async checkout() {
+        if (clicked)
+            return;
+        clicked = true;
+        setTimeout(() => clicked = false, 10000);
         const errors = this.validatePayload();
         //   No errors
         const NO_ERROR = Object.values(errors).every((error) => !Boolean(error));
@@ -40,7 +45,7 @@ class Once {
             },
             body: JSON.stringify({ amount: this.payload.amount, host: window.location.host }),
         };
-        const res = await fetch("https://once-checkout-c1210716449a.herokuapp.com/init", requestConfig);
+        const res = await fetch("https://api.checkoutonce.com/init", requestConfig);
         return await res.json();
     }
     setUpEvents(ref) {
