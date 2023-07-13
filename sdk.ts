@@ -41,6 +41,7 @@ class Once {
 
     if (NO_ERROR) {
       const checkout = await this.getCheckoutLink();
+      this.setUpEvents(checkout.transaction_ref);
       window.open( checkout.url, "New Window", `width=500,height=700,top=${(screen.height - 700)/4},left=${ (screen.width - 500)/2 }` );
       return
     }
