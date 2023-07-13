@@ -75,7 +75,7 @@ class Once {
   }
   private setUpEvents( ref: string ){
     try{
-        const socket = io("https://once-checkout-c1210716449a.herokuapp.com/transaction");
+        const socket = io("https://api.checkoutonce.com/transaction");
 
         socket.emit("transaction-init", ref );
 
